@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @SpringBootApplication
 @EnableAutoConfiguration
-public class Sample {
+public class Application {
 
-    @RequestMapping("/")
+    @RequestMapping("/hello")
     @ResponseBody
-    String home() {
+    String hello() {
         return "Hello World!";
     }
 
@@ -30,6 +30,6 @@ public class Sample {
 
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(Sample.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }

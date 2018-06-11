@@ -17,23 +17,24 @@ import java.util.Collections;
 
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-	public JWTLoginFilter(String url, AuthenticationManager authManager) {
-		super(new AntPathRequestMatcher(url));
-		setAuthenticationManager(authManager);
-	}
+    public JWTLoginFilter(String url, AuthenticationManager authManager) {
+        super(new AntPathRequestMatcher(url));
+        setAuthenticationManager(authManager);
+    }
 
-	@Override
-	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-			throws AuthenticationException, IOException, ServletException {
-		CarrierCredentials user = new ObjectMapper().readValue(request.getInputStream(), CarrierCredentials.class);
-		return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),
-				user.getPassword(), Collections.emptyList()));
-	}
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException, IOException, ServletException {
+        AccountCredentials user = new ObjectMapper().readValue(request.getInputStream(), AccountCredentials.class);
+
+        return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),
+                user.getPassword(), Collections.emptyList()));
+    }
 
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
-		AuthenticationService.addAuthentication(response, auth.getName());
+        TokenAuthenticationService.addAuthentication(response, auth.getName());
 	}
 
 }

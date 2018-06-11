@@ -1,6 +1,6 @@
 package com.eceris.memory.authentication;
 
-public class CarrierCredentials {
+public class AccountCredentials {
 
 	private String username;
 
